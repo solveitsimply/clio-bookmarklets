@@ -25,7 +25,8 @@ If you make changes to any bookmarklet JavaScript files in `bookmarklets/`, you 
 
 ## Available Bookmarklets
 
-- **Get Clio Folder Path**: Copies the local file path (as it would appear in Clio Drive) for the currently viewed document folder in Clio Manage to your clipboard. (More bookmarklets coming soon.)
+- **Get Clio Folder Path**: Copies the local file path (as it would appear in Clio Drive) for the currently viewed document folder in Clio Manage to your clipboard.
+- (More bookmarklets coming soon.)
 
 ## Adding New Bookmarklets
 
