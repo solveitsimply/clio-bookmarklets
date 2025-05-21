@@ -26,7 +26,8 @@ If you make changes to any bookmarklet JavaScript files in `bookmarklets/`, you 
 ## Available Bookmarklets
 
 - **Get Clio Folder Path**: Copies the local file path (as it would appear in Clio Drive) for the currently viewed document folder in Clio Manage to your clipboard.
-- (More bookmarklets coming soon.)
+- **Conflict Check**: Prompts for a list of search terms, performs a conflict check for each term across all categories, collects all results (with pagination), and generates a detailed HTML report with clickable links to each record. The report includes the account name, search terms, result counts, and is suitable for large-scale conflict checks.  
+  [Minified code: `bookmarklets/min/conflict-check.js`]
 
 ## Adding New Bookmarklets
 
