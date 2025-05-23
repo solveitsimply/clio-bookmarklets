@@ -5,6 +5,9 @@
 - **Copy Clio Drive Folder Path**: Copies the local file path (as it would appear in Clio Drive) for the currently viewed document folder in Clio Manage to your clipboard.
 <!-- BOOKMARKLET LIST END -->
 
+> **Looking to use the bookmarklets?**  
+> 👉 [Click here for the user instructions and bookmarklet links](https://solveitsimply.github.io/clio-bookmarklets/)
+
 ## Loader Pattern for Large Bookmarklets
 
 For bookmarklets that are too large or use modern JavaScript (async/await, generators, etc.), use the loader pattern:
@@ -38,10 +41,6 @@ javascript:(function(){
 - Keep remote bookmarklet filenames unique and descriptive.
 - Always test the loader bookmarklet after publishing a new remote script.
 - Avoid dependencies on external modules that aren't bundled into the remote JS file.
-
-
-> **Looking to use the bookmarklets?**  
-> 👉 [Click here for the user instructions and bookmarklet links](https://solveitsimply.github.io/clio-bookmarklets/)
 
 ---
 

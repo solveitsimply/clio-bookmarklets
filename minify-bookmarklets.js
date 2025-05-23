@@ -100,7 +100,7 @@ function updateDocsHTML(bookmarklets) {
       const code = b.minifiedCode.startsWith('javascript:') ? b.minifiedCode.slice(11) : b.minifiedCode;
       return `        <a href='javascript:${encodeURIComponent(code)}' class="drag-link">${b.name}</a>`;
     }
-  }).join('\n\n');
+  }).join('\n');
   // Generate code blocks for Method B
   const codeBlocks = bookmarklets.map(b => {
     if (b.loader) {
@@ -132,17 +132,17 @@ function updateDocsHTML(bookmarklets) {
   // Replace the drag links section (Method A)
   html = html.replace(
     /(<!-- Method A drag links start -->|<p>Click and hold one of these links:<\/p>\s*)([\s\S]*?)(\s*<p><strong>Instructions:<\/strong><\/p>)/,
-    `$1\n        \n${dragLinks}\n\n        $3`
+    `$1\n${dragLinks}\n$3`
   );
   // Replace the code blocks section (Method B)
   html = html.replace(
     /(<!-- Method B code blocks start -->|<p>Copy the code you need below:<\/p>)([\s\S]*?)(\s*<p><strong>Instructions:<\/strong><\/p>)/,
-    `$1\n${codeBlocks}\n\n        $3`
+    `$1\n${codeBlocks}\n$3`
   );
   // Replace the descriptions section
   html = html.replace(
     /(<!-- Bookmarklet descriptions start -->|<h3>💡 What Each Bookmarklet Does<\/h3>\s*<ul>)([\s\S]*?)(\s*<\/ul>)/,
-    `$1\n${descriptions}\n        $3`
+    `$1\n${descriptions}\n$3`
   );
   fs.writeFileSync(DOCS_FILE, html, 'utf8');
   console.log('Updated docs/index.html with latest bookmarklets');
