@@ -1,5 +1,10 @@
 # Clio Manage Automation Bookmarklets
 
+<!-- BOOKMARKLET LIST START -->
+- **Run Conflict Check**: This bookmarklet automates conflict checks in Clio Manage by accepting a list of search terms,
+- **Copy Clio Drive Folder Path**: Copies the local file path (as it would appear in Clio Drive) for the currently viewed document folder in Clio Manage to your clipboard.
+<!-- BOOKMARKLET LIST END -->
+
 > **Looking to use the bookmarklets?**  
 > 👉 [Click here for the user instructions and bookmarklet links](docs/index.html)
 
