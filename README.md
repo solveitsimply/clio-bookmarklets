@@ -1,3 +1,5 @@
+[![SolveItSimply](docs/assets/SolveItSimply.svg)](https://www.solveitsimply.com)
+
 # Clio Manage Automation Bookmarklets
 
 <!-- BOOKMARKLET LIST START -->
