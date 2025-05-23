@@ -92,6 +92,7 @@
         
         
         
+        
         </ul>
     </div>
 
@@ -116,9 +117,13 @@
         
         
         
-        <a href='javascript:(function()%7Bvar%20s%3Ddocument.createElement('script')%3Bs.src%3D'https%3A%2F%2Fsolveitsimply.github.io%2Fclio-bookmarklets%2Fremote%2Fconflict-check.js%3F'%2BDate.now()%3Bdocument.body.appendChild(s)%3B%7D)()' class="drag-link">Run Conflict Check</a>
+        
+        
+        <a href='javascript:(function()%7Bvar%20s%3Ddocument.createElement('script')%3Bs.src%3D'https%3A%2F%2Fsolveitsimply.github.io%2Fclio-bookmarklets%2Fremote%2Fconflict-check.js'%3Bdocument.body.appendChild(s)%3B%7D)()' class="drag-link">Run Conflict Check</a>
 
         <a href='javascript:!function()%7Bvar%20e%2Ct%3D(e%3Dnavigator.platform.toLowerCase()).indexOf('win')%3E%3D0%3F'windows'%3Ae.indexOf('mac')%3E%3D0%3F'mac'%3A'windows'%2Co%3Dfunction(e%2Ct)%7Breturn%20e%3F'windows'%3D%3D%3Dt%3F'A%3A'%2Be.replace(%2F%5C%2F%2Fg%2C'%5C%5C')%3A'%2FClio%20Drive'%2Be%3A''%7D(function()%7Btry%7Bvar%20e%3DsessionStorage.getItem('clioClientName')%7C%7C''%2Ct%3Ddocument.querySelector('cc-page-header')%2Co%3D''%2Cr%3D''%3Bif(t)%7Bvar%20n%3Dt.querySelector('h1.has-subtitle')%3Bn%26%26(o%3Dn.textContent.trim())%3Bvar%20a%3Dt.querySelector('h2.subtitle')%3Ba%26%26(r%3Da.textContent.trim())%7Dif(!e%26%26r%26%26(e%3Dr%2CsessionStorage.setItem('clioClientName'%2Ce))%2C!e)%7Bvar%20i%3Ddocument.querySelector('.contact-name%20a')%3Bif(i)%7Be%3Di.textContent.trim()%2CsessionStorage.setItem('clioClientName'%2Ce)%3Bvar%20l%3DsessionStorage.getItem('clioReturnUrl')%3Bif(l)return%20sessionStorage.removeItem('clioReturnUrl')%2CsetTimeout((function()%7Bwindow.location.href%3Dl%7D)%2C100)%2Cnull%7D%7Dif(!e)%7BsessionStorage.setItem('clioReturnUrl'%2Cwindow.location.href)%3Bvar%20c%3Ddocument.getElementById('control-for-dashboard-tab')%3Breturn%20c%3F(c.click()%2Cnull)%3A(alert('Could%20not%20find%20Dashboard%20tab%20to%20extract%20client%20name.')%2Cnull)%7Dif(!e%7C%7C!o)return%20null%3Bvar%20u%3D%22%2F%22.concat(e%2C%22%2F%22).concat(o%2C%22%2F%22)%2Cd%3Ddocument.querySelector('nav.breadcrumbs-list')%3Bif(d)%7Bvar%20s%3Dd.querySelectorAll('a.breadcrumb-link')%3Bif(s.length%3E1)%7Bfor(var%20m%3D%5B%5D%2Cf%3D1%3Bf%3Cs.length%3Bf%2B%2B)%7Bvar%20v%3Ds%5Bf%5D.textContent.trim()%3Bv%26%26m.push(v)%7Dm.length%3E0%26%26(u%2B%3Dm.join('%2F')%2B'%2F')%7D%7Dreturn%20u%7Dcatch(e)%7Breturn%20null%7D%7D()%2Ct)%3B!function(e)%7Bif(e)if(navigator.clipboard)navigator.clipboard.writeText(e)%3Belse%7Bvar%20t%3Ddocument.createElement('textarea')%3Bt.value%3De%2Cdocument.body.appendChild(t)%2Ct.select()%2Cdocument.execCommand('copy')%2Cdocument.body.removeChild(t)%7D%7D(o)%2Co%3Falert('Clio%20Drive%20path%20copied%20to%20clipboard%3A%5Cn'%2Bo)%3Aalert('Could%20not%20determine%20Clio%20folder%20path.%20Please%20ensure%20you%20are%20viewing%20a%20folder%20in%20Clio%20Manage.')%7D()%3B' class="drag-link">Copy Clio Drive Folder Path</a>
+
+        
 
         
 
@@ -137,10 +142,12 @@
         <p>Copy the code you need below:</p>
 
         <h4>Run Conflict Check</h4>
-        <div class="code-block">javascript:(function(){var s=document.createElement('script');s.src='https://solveitsimply.github.io/clio-bookmarklets/remote/conflict-check.js?'+Date.now();document.body.appendChild(s);})()</div>
+        <div class="code-block">javascript:(function(){var s=document.createElement('script');s.src='https://solveitsimply.github.io/clio-bookmarklets/remote/conflict-check.js';document.body.appendChild(s);})()</div>
 
         <h4>Copy Clio Drive Folder Path</h4>
         <div class="code-block">javascript:!function(){var e,t=(e=navigator.platform.toLowerCase()).indexOf('win')>=0?'windows':e.indexOf('mac')>=0?'mac':'windows',o=function(e,t){return e?'windows'===t?'A:'+e.replace(/\//g,'\\'):'/Clio Drive'+e:''}(function(){try{var e=sessionStorage.getItem('clioClientName')||'',t=document.querySelector('cc-page-header'),o='',r='';if(t){var n=t.querySelector('h1.has-subtitle');n&&(o=n.textContent.trim());var a=t.querySelector('h2.subtitle');a&&(r=a.textContent.trim())}if(!e&&r&&(e=r,sessionStorage.setItem('clioClientName',e)),!e){var i=document.querySelector('.contact-name a');if(i){e=i.textContent.trim(),sessionStorage.setItem('clioClientName',e);var l=sessionStorage.getItem('clioReturnUrl');if(l)return sessionStorage.removeItem('clioReturnUrl'),setTimeout((function(){window.location.href=l}),100),null}}if(!e){sessionStorage.setItem('clioReturnUrl',window.location.href);var c=document.getElementById('control-for-dashboard-tab');return c?(c.click(),null):(alert('Could not find Dashboard tab to extract client name.'),null)}if(!e||!o)return null;var u="/".concat(e,"/").concat(o,"/"),d=document.querySelector('nav.breadcrumbs-list');if(d){var s=d.querySelectorAll('a.breadcrumb-link');if(s.length>1){for(var m=[],f=1;f<s.length;f++){var v=s[f].textContent.trim();v&&m.push(v)}m.length>0&&(u+=m.join('/')+'/')}}return u}catch(e){return null}}(),t);!function(e){if(e)if(navigator.clipboard)navigator.clipboard.writeText(e);else{var t=document.createElement('textarea');t.value=e,document.body.appendChild(t),t.select(),document.execCommand('copy'),document.body.removeChild(t)}}(o),o?alert('Clio Drive path copied to clipboard:\n'+o):alert('Could not determine Clio folder path. Please ensure you are viewing a folder in Clio Manage.')}();</div>
+
+        
 
         
 
