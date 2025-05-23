@@ -80,17 +80,14 @@ function updateDocsHTML(bookmarklets) {
   let html = fs.readFileSync(DOCS_FILE, 'utf8');
   // Generate drag links for Method A
   const dragLinks = bookmarklets.map(b => {
-    // Use double quotes for href, escape double quotes in JS code
-    function escapeDoubleQuotes(str) {
-      return str.replace(/"/g, '"');
-    }
+    // Always URI-encode the JS code for the href attribute
     if (b.loader) {
       const remoteUrl = `https://solveitsimply.github.io/clio-bookmarklets/remote/${b.filename}`;
       const loaderCode = `(()=>{let u='${remoteUrl}?t='+Date.now();fetch(u).then(r=>r.text()).then(t=>{try{eval(t)}catch(e){let m=t.match(/<pre[^>]*>([\\s\\S]*?)<\\/pre>/i);if(m)eval(m[1]);else alert('Could not extract JS from HTML response.')}})})()`;
-      return `<a href="javascript:${escapeDoubleQuotes(loaderCode)}" class="drag-link">${b.name}</a>`;
+      return `<a href="javascript:${encodeURIComponent(loaderCode)}" class="drag-link">${b.name}</a>`;
     } else {
       const code = b.minifiedCode.startsWith('javascript:') ? b.minifiedCode.slice(11) : b.minifiedCode;
-      return `<a href="javascript:${escapeDoubleQuotes(code)}" class="drag-link">${b.name}</a>`;
+      return `<a href="javascript:${encodeURIComponent(code)}" class="drag-link">${b.name}</a>`;
     }
   }).join('');
   // Generate code blocks for Method B
