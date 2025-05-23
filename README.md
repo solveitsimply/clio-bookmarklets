@@ -1,4 +1,6 @@
-[![SolveItSimply](docs/assets/SolveItSimply.svg)](https://www.solveitsimply.com)
+<a href="https://www.solveitsimply.com" style="display:inline-block; float:left; margin-right:16px;" target="_blank" rel="noopener">
+  <img src="docs/assets/SolveItSimply.svg" alt="SolveItSimply Logo" style="height:48px; width:auto;">
+</a>
 
 # Clio Manage Automation Bookmarklets
 
