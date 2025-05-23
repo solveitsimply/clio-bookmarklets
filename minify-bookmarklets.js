@@ -30,9 +30,19 @@ async function minifyBookmarklets() {
         ecma: 2015,
         compress: true,
         mangle: true,
-        output: { comments: false }
+        output: { 
+          comments: false,
+          quote_style: 3  // Use backticks instead of single quotes
+        }
       });
-      const bookmarklet = 'javascript:' + result.code;
+      
+      // Replace any remaining single quotes with backticks to make it href-attribute safe
+      let minifiedCode = result.code;
+      // Replace single quotes that are used as string delimiters with backticks
+      // This is a simple approach - we'll replace all single quotes with backticks
+      minifiedCode = minifiedCode.replace(/'/g, '`');
+      
+      const bookmarklet = 'javascript:' + minifiedCode;
       fs.writeFileSync(outPath, bookmarklet, 'utf8');
       console.log(`Minified ${file} -> min/${file}`);
     } catch (err) {

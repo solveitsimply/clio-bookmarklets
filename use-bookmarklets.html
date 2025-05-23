@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>How to Use Clio Bookmarklets</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        h1 {
+            color: #0077cc;
+            border-bottom: 2px solid #0077cc;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #333;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #555;
+        }
+        ul {
+            margin: 10px 0;
+            padding-left: 20px;
+        }
+        li {
+            margin: 5px 0;
+        }
+        .method-box {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background: #f9f9f9;
+        }
+        .drag-link {
+            background: #0077cc;
+            color: white;
+            padding: 10px 15px;
+            margin: 5px 10px 5px 0;
+            border-radius: 4px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: grab;
+        }
+        .drag-link:hover {
+            background: #005a99;
+        }
+        .drag-link:active {
+            cursor: grabbing;
+        }
+        .code-block {
+            background: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            font-family: monospace;
+            font-size: 12px;
+            word-break: break-all;
+            overflow-wrap: break-word;
+        }
+        .important {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .step-number {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0077cc;
+        }
+    </style>
+</head>
+<body>
+    <h1>How to Use Clio Bookmarklets</h1>
+    
+    <p>These bookmarklets help automate tasks within <a href="https://app.clio.com" target="_blank">Clio Manage</a>. Follow the steps below to add them to your browser and start using them.</p>
+
+    <h2><span class="step-number">1.</span> Display Your Bookmarks Bar</h2>
+    <p>Ensure your browser's bookmarks or favorites bar is visible (if it's not already):</p>
+    <ul>
+        <li><strong>Google Chrome:</strong> Press <kbd>Ctrl + Shift + B</kbd> (Windows/Linux) or <kbd>Cmd + Shift + B</kbd> (Mac).</li>
+        <li><strong>Mozilla Firefox:</strong> Press <kbd>Ctrl + Shift + B</kbd> (Windows/Linux) or <kbd>Cmd + Shift + B</kbd> (Mac).</li>
+        <li><strong>Microsoft Edge:</strong> Press <kbd>Ctrl + Shift + B</kbd> (Windows) or <kbd>Cmd + Shift + B</kbd> (Mac).</li>
+        <li><strong>Safari:</strong> Go to <em>View</em> > <em>Show Favorites Bar</em>.</li>
+    </ul>
+
+    <h2><span class="step-number">2.</span> Add Bookmarklets to Your Browser</h2>
+    <p>You can add the bookmarklets using either of the following methods:</p>
+
+    <div class="method-box">
+        <h3>Method A: Drag and Drop</h3>
+        <p>Click and hold one of these links:</p>
+        
+        <a href='javascript:!function(){const e=function(e,t){return e?`windows`===t?`A:`+e.replace(/\//g,`\\`):`/Clio Drive`+e:``}(function(){try{let e=sessionStorage.getItem(`clioClientName`)||``;const t=document.querySelector(`cc-page-header`);let o=``;if(t&&t.hasAttribute(`header`)&&(o=t.getAttribute(`header`).trim()),!e){const t=document.querySelector(`.contact-name a`);if(t){e=t.textContent.trim(),sessionStorage.setItem(`clioClientName`,e);const o=sessionStorage.getItem(`clioReturnUrl`);if(o)return sessionStorage.removeItem(`clioReturnUrl`),setTimeout((()=>{window.location.href=o}),100),null}}if(!e){sessionStorage.setItem(`clioReturnUrl`,window.location.href);const e=document.getElementById(`control-for-dashboard-tab`);return e?(e.click(),null):(alert(`Could not find Dashboard tab to extract client name.`),null)}if(!e||!o)return null;let n=`/${e}/${o}/`;const r=document.querySelector(`nav.breadcrumbs-list`);if(r){const e=r.querySelectorAll(`a.breadcrumb-link`);if(e.length>1){const t=[];for(let o=1;o<e.length;o++){const n=e[o].textContent.trim();n&&t.push(n)}t.length>0&&(n+=t.join(`/`)+`/`)}}return n}catch(e){return null}}(),`windows`);!function(e){if(e)if(navigator.clipboard)navigator.clipboard.writeText(e);else{const t=document.createElement(`textarea`);t.value=e,document.body.appendChild(t),t.select(),document.execCommand(`copy`),document.body.removeChild(t)}}(e),e?alert(`Clio Drive path copied to clipboard:\n`+e):alert(`Could not determine Clio folder path. Please ensure you are viewing a folder in Clio Manage.`)}();' class="drag-link">Copy Clio Drive Folder Path</a>
+
+        <a href='javascript:!function(e,t){document.getElementById(`clio-conflict-check-modal`)?.remove();const n=document.createElement(`div`);n.id=`clio-conflict-check-modal`,n.style="\n      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;\n      background: rgba(0,0,0,0.3); z-index: 99999; display: flex; align-items: center; justify-content: center;\n    ";const o=document.createElement(`div`);o.style="\n      background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.2);\n      min-width: 340px; max-width: 90vw; display: flex; flex-direction: column; gap: 12px;\n    ";const r=document.createElement(`h2`);r.textContent=`Conflict Check: Enter Search Terms`,r.style=`margin: 0 0 8px 0; font-size: 1.2em;`;const c=document.createElement(`textarea`);c.rows=10,c.style=`width: 100%; font-size: 1em; resize: vertical;`,c.placeholder=`Paste one search term per line...`;const i=document.createElement(`div`);i.style=`display: flex; gap: 8px; justify-content: flex-end;`;const l=document.createElement(`button`);l.textContent=`Go`,l.style=`padding: 6px 18px; font-size: 1em; background: #0077cc; color: #fff; border: none; border-radius: 4px; cursor: pointer;`;const a=document.createElement(`button`);a.textContent=`Cancel`,a.style=`padding: 6px 18px; font-size: 1em; background: #eee; color: #333; border: none; border-radius: 4px; cursor: pointer;`,l.onclick=()=>{const t=c.value.split(`\n`).map((e=>e.trim())).filter(Boolean);0!==t.length?(n.remove(),e(t)):c.focus()},a.onclick=()=>{n.remove(),t&&t()},i.appendChild(a),i.appendChild(l),o.appendChild(r),o.appendChild(c),o.appendChild(i),n.appendChild(o),document.body.appendChild(n),c.focus()}((async function(e){if(!e.length)return;function t(e){return new Promise((t=>setTimeout(t,e)))}async function n(e){if(o)throw new Error(`Cancelled`);const n=document.querySelector(`input.k-input[type="text"]`);if(!n)throw alert(`Could not find the Clio search input box.`),new Error(`No search input`);n.focus(),n.value=e,n.dispatchEvent(new Event(`input`,{bubbles:!0})),n.dispatchEvent(new Event(`change`,{bubbles:!0}));const r=new KeyboardEvent(`keyup`,{bubbles:!0,key:`Enter`,code:`Enter`,which:13,keyCode:13});n.dispatchEvent(r),await t(5e3),await function(e=1e4){return new Promise(((t,n)=>{const o=Date.now();!function r(){document.querySelector(`cc-search-categories, .cc-search-categories`)?t():Date.now()-o>e?n(new Error(`Timed out waiting for search results.`)):setTimeout(r,200)}()}))}();const c=await async function(e=1e4){const t=Date.now();return new Promise(((n,o)=>{!function r(){const c=Array.from(document.querySelectorAll(`cc-search-categories ul li a`));c.length>0&&c.some((e=>e.textContent.trim()))?n(c):Date.now()-t>e?o(new Error(`Timed out waiting for category tabs.`)):setTimeout(r,150)}()}))}(),i={};for(const e of c){if(o)throw new Error(`Cancelled`);const n=e.textContent.trim();e.click(),await t(800);let r=[],c=new Set;for(;;){if(o)throw new Error(`Cancelled`);const e=document.querySelector(`.k-pager-info`),n=e?e.textContent.trim():``;if(n&&c.has(n))break;n&&c.add(n);const i=Array.from(document.querySelectorAll(`.k-grid-content table[role="grid"] tbody tr`)).map((e=>Array.from(e.querySelectorAll(`td`)).map((e=>{const t=e.querySelector(`a`);return t&&t.getAttribute(`href`)?{text:t.innerText.trim(),href:t.getAttribute(`href`)}:e.innerText.trim()}))));r=r.concat(i);const l=document.querySelector(`a.k-pager-nav[aria-label="Go to the next page"]:not(.k-state-disabled)`);if(!l)break;l.click(),await t(800)}i[n]=r}return i}let o=!1,r=null;function c(e){const t=document.getElementById(`clio-conflict-check-progress-msg`);t&&(t.textContent=e)}const i=[];!function(e){document.getElementById(`clio-conflict-check-progress`)?.remove();const t=document.createElement(`div`);t.id=`clio-conflict-check-progress`,t.style="\n          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;\n          background: rgba(0,0,0,0.3); z-index: 99999; display: flex; align-items: center; justify-content: center;\n        ";const n=document.createElement(`div`);n.style="\n          background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.2);\n          min-width: 320px; max-width: 90vw; display: flex; flex-direction: column; gap: 16px; align-items: center;\n        ";const c=document.createElement(`div`);c.id=`clio-conflict-check-progress-msg`,c.textContent=e,c.style=`font-size:1.1em; margin-bottom:8px;`;const i=document.createElement(`div`);i.style=`width:32px;height:32px;border:4px solid #eee;border-top:4px solid #0077cc;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:8px;`,i.innerHTML=`<style>@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}</style>`;const l=document.createElement(`button`);l.textContent=`Cancel`,l.style=`padding: 6px 18px; font-size: 1em; background: #eee; color: #333; border: none; border-radius: 4px; cursor: pointer;`,l.onclick=()=>{o=!0,c.textContent=`Cancelling...`,l.disabled=!0},n.appendChild(i),n.appendChild(c),n.appendChild(l),t.appendChild(n),document.body.appendChild(t),r=t}(`Starting conflict check...`);for(let t=0;t<e.length&&!o;++t){const o=e[t];try{c(`Processing term ${t+1} of ${e.length}: "${o}"`);const r=await n(o);i.push({term:o,categories:r})}catch(e){i.push({term:o,error:e.message})}}if(document.getElementById(`clio-conflict-check-progress`)?.remove(),r=null,o)return void alert(`Conflict check cancelled by user.`);function l(e){return e.replace(/[&<>"`]/g,(e=>({`&`:`&`,`<`:`<`,`>`:`>`,`"`:`"`,"`":`&#39;`}[e])))}function a(e,t,n){return e.length?`<table border="1" cellpadding="4" style="border-collapse:collapse; margin:8px 0;">\n          <tbody>\n            ${e.map((e=>`<tr>${e.map(((e,t)=>{if(0===t&&e&&"object"==typeof e&&e.href){let t=e.href;return t.startsWith("#/")&&(t=(n||"https://app.clio.com/nc/")+t),`<td><a href="${t}" target="_blank" rel="noopener">${l(e.text)}</a></td>`}return`<td>${l("object"==typeof e?e.text:e)}</td>`})).join(``)}</tr>`)).join(``)}\n          </tbody>\n        </table>`:`<em>No results</em>`}let s="";const d=document.querySelector(`input.k-input[type="text"]`);if(d&&d.placeholder){const e=d.placeholder.match(/Search (.+)$/);e&&(s=e[1].trim())}s||(s="Clio Account");let p=`<html><head><title>Clio Conflict Check Report for ${l(s)}</title>\n        <style>\n          body { font-family: sans-serif; margin: 24px; }\n          h2 { margin-top: 2em; }\n          table { font-size: 0.95em; }\n          .error { color: #b00; }\n        </style>\n      </head><body>\n      <h1>Clio Conflict Check Report for ${l(s)}</h1>\n      <p>Generated: ${(new Date).toLocaleString()}</p>\n      `;for(const e of i)if(p+=`<h2>Search Term: <span style="color:#0077cc">${l(e.term)}</span></h2>`,e.error)p+=`<div class="error">Error: ${l(e.error)}</div>`;else for(const[t,n]of Object.entries(e.categories)){const e=n.length,o=e.toLocaleString("en-US");p+=`<h3>${l(t)} (${o} result${1===e?"":"s"})</h3>`,p+=a(n,0,"https://app.clio.com/nc/")}p+=`</body></html>`;const m=window.open();m?(m.document.write(p),m.document.close()):alert(`Popup blocked! Please allow popups to see the report.`)}),(function(){}));' class="drag-link">Run Conflict Check</a>
+
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Drag one of the links above to your bookmarks or favorites bar.</li>
+            <li>Release the mouse button to drop it there.</li>
+        </ol>
+    </div>
+
+    <div class="method-box">
+        <h3>Method B: Manual Addition</h3>
+        <p>Copy the code you need below:</p>
+
+        <h4>Copy Clio Drive Folder Path</h4>
+        <div class="code-block">javascript:!function(){const e=function(e,t){return e?`windows`===t?`A:`+e.replace(/\//g,`\\`):`/Clio Drive`+e:``}(function(){try{let e=sessionStorage.getItem(`clioClientName`)||``;const t=document.querySelector(`cc-page-header`);let o=``;if(t&&t.hasAttribute(`header`)&&(o=t.getAttribute(`header`).trim()),!e){const t=document.querySelector(`.contact-name a`);if(t){e=t.textContent.trim(),sessionStorage.setItem(`clioClientName`,e);const o=sessionStorage.getItem(`clioReturnUrl`);if(o)return sessionStorage.removeItem(`clioReturnUrl`),setTimeout((()=>{window.location.href=o}),100),null}}if(!e){sessionStorage.setItem(`clioReturnUrl`,window.location.href);const e=document.getElementById(`control-for-dashboard-tab`);return e?(e.click(),null):(alert(`Could not find Dashboard tab to extract client name.`),null)}if(!e||!o)return null;let n=`/${e}/${o}/`;const r=document.querySelector(`nav.breadcrumbs-list`);if(r){const e=r.querySelectorAll(`a.breadcrumb-link`);if(e.length>1){const t=[];for(let o=1;o<e.length;o++){const n=e[o].textContent.trim();n&&t.push(n)}t.length>0&&(n+=t.join(`/`)+`/`)}}return n}catch(e){return null}}(),`windows`);!function(e){if(e)if(navigator.clipboard)navigator.clipboard.writeText(e);else{const t=document.createElement(`textarea`);t.value=e,document.body.appendChild(t),t.select(),document.execCommand(`copy`),document.body.removeChild(t)}}(e),e?alert(`Clio Drive path copied to clipboard:\n`+e):alert(`Could not determine Clio folder path. Please ensure you are viewing a folder in Clio Manage.`)}();</div>
+
+        <h4>Run Conflict Check</h4>
+        <div class="code-block">javascript:!function(e,t){document.getElementById(`clio-conflict-check-modal`)?.remove();const n=document.createElement(`div`);n.id=`clio-conflict-check-modal`,n.style="\n      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;\n      background: rgba(0,0,0,0.3); z-index: 99999; display: flex; align-items: center; justify-content: center;\n    ";const o=document.createElement(`div`);o.style="\n      background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.2);\n      min-width: 340px; max-width: 90vw; display: flex; flex-direction: column; gap: 12px;\n    ";const r=document.createElement(`h2`);r.textContent=`Conflict Check: Enter Search Terms`,r.style=`margin: 0 0 8px 0; font-size: 1.2em;`;const c=document.createElement(`textarea`);c.rows=10,c.style=`width: 100%; font-size: 1em; resize: vertical;`,c.placeholder=`Paste one search term per line...`;const i=document.createElement(`div`);i.style=`display: flex; gap: 8px; justify-content: flex-end;`;const l=document.createElement(`button`);l.textContent=`Go`,l.style=`padding: 6px 18px; font-size: 1em; background: #0077cc; color: #fff; border: none; border-radius: 4px; cursor: pointer;`;const a=document.createElement(`button`);a.textContent=`Cancel`,a.style=`padding: 6px 18px; font-size: 1em; background: #eee; color: #333; border: none; border-radius: 4px; cursor: pointer;`,l.onclick=()=>{const t=c.value.split(`\n`).map((e=>e.trim())).filter(Boolean);0!==t.length?(n.remove(),e(t)):c.focus()},a.onclick=()=>{n.remove(),t&&t()},i.appendChild(a),i.appendChild(l),o.appendChild(r),o.appendChild(c),o.appendChild(i),n.appendChild(o),document.body.appendChild(n),c.focus()}((async function(e){if(!e.length)return;function t(e){return new Promise((t=>setTimeout(t,e)))}async function n(e){if(o)throw new Error(`Cancelled`);const n=document.querySelector(`input.k-input[type="text"]`);if(!n)throw alert(`Could not find the Clio search input box.`),new Error(`No search input`);n.focus(),n.value=e,n.dispatchEvent(new Event(`input`,{bubbles:!0})),n.dispatchEvent(new Event(`change`,{bubbles:!0}));const r=new KeyboardEvent(`keyup`,{bubbles:!0,key:`Enter`,code:`Enter`,which:13,keyCode:13});n.dispatchEvent(r),await t(5e3),await function(e=1e4){return new Promise(((t,n)=>{const o=Date.now();!function r(){document.querySelector(`cc-search-categories, .cc-search-categories`)?t():Date.now()-o>e?n(new Error(`Timed out waiting for search results.`)):setTimeout(r,200)}()}))}();const c=await async function(e=1e4){const t=Date.now();return new Promise(((n,o)=>{!function r(){const c=Array.from(document.querySelectorAll(`cc-search-categories ul li a`));c.length>0&&c.some((e=>e.textContent.trim()))?n(c):Date.now()-t>e?o(new Error(`Timed out waiting for category tabs.`)):setTimeout(r,150)}()}))}(),i={};for(const e of c){if(o)throw new Error(`Cancelled`);const n=e.textContent.trim();e.click(),await t(800);let r=[],c=new Set;for(;;){if(o)throw new Error(`Cancelled`);const e=document.querySelector(`.k-pager-info`),n=e?e.textContent.trim():``;if(n&&c.has(n))break;n&&c.add(n);const i=Array.from(document.querySelectorAll(`.k-grid-content table[role="grid"] tbody tr`)).map((e=>Array.from(e.querySelectorAll(`td`)).map((e=>{const t=e.querySelector(`a`);return t&&t.getAttribute(`href`)?{text:t.innerText.trim(),href:t.getAttribute(`href`)}:e.innerText.trim()}))));r=r.concat(i);const l=document.querySelector(`a.k-pager-nav[aria-label="Go to the next page"]:not(.k-state-disabled)`);if(!l)break;l.click(),await t(800)}i[n]=r}return i}let o=!1,r=null;function c(e){const t=document.getElementById(`clio-conflict-check-progress-msg`);t&&(t.textContent=e)}const i=[];!function(e){document.getElementById(`clio-conflict-check-progress`)?.remove();const t=document.createElement(`div`);t.id=`clio-conflict-check-progress`,t.style="\n          position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;\n          background: rgba(0,0,0,0.3); z-index: 99999; display: flex; align-items: center; justify-content: center;\n        ";const n=document.createElement(`div`);n.style="\n          background: #fff; padding: 24px; border-radius: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.2);\n          min-width: 320px; max-width: 90vw; display: flex; flex-direction: column; gap: 16px; align-items: center;\n        ";const c=document.createElement(`div`);c.id=`clio-conflict-check-progress-msg`,c.textContent=e,c.style=`font-size:1.1em; margin-bottom:8px;`;const i=document.createElement(`div`);i.style=`width:32px;height:32px;border:4px solid #eee;border-top:4px solid #0077cc;border-radius:50%;animation:spin 1s linear infinite;margin-bottom:8px;`,i.innerHTML=`<style>@keyframes spin{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}</style>`;const l=document.createElement(`button`);l.textContent=`Cancel`,l.style=`padding: 6px 18px; font-size: 1em; background: #eee; color: #333; border: none; border-radius: 4px; cursor: pointer;`,l.onclick=()=>{o=!0,c.textContent=`Cancelling...`,l.disabled=!0},n.appendChild(i),n.appendChild(c),n.appendChild(l),t.appendChild(n),document.body.appendChild(t),r=t}(`Starting conflict check...`);for(let t=0;t<e.length&&!o;++t){const o=e[t];try{c(`Processing term ${t+1} of ${e.length}: "${o}"`);const r=await n(o);i.push({term:o,categories:r})}catch(e){i.push({term:o,error:e.message})}}if(document.getElementById(`clio-conflict-check-progress`)?.remove(),r=null,o)return void alert(`Conflict check cancelled by user.`);function l(e){return e.replace(/[&<>"`]/g,(e=>({`&`:`&`,`<`:`<`,`>`:`>`,`"`:`"`,"`":`&#39;`}[e])))}function a(e,t,n){return e.length?`<table border="1" cellpadding="4" style="border-collapse:collapse; margin:8px 0;">\n          <tbody>\n            ${e.map((e=>`<tr>${e.map(((e,t)=>{if(0===t&&e&&"object"==typeof e&&e.href){let t=e.href;return t.startsWith("#/")&&(t=(n||"https://app.clio.com/nc/")+t),`<td><a href="${t}" target="_blank" rel="noopener">${l(e.text)}</a></td>`}return`<td>${l("object"==typeof e?e.text:e)}</td>`})).join(``)}</tr>`)).join(``)}\n          </tbody>\n        </table>`:`<em>No results</em>`}let s="";const d=document.querySelector(`input.k-input[type="text"]`);if(d&&d.placeholder){const e=d.placeholder.match(/Search (.+)$/);e&&(s=e[1].trim())}s||(s="Clio Account");let p=`<html><head><title>Clio Conflict Check Report for ${l(s)}</title>\n        <style>\n          body { font-family: sans-serif; margin: 24px; }\n          h2 { margin-top: 2em; }\n          table { font-size: 0.95em; }\n          .error { color: #b00; }\n        </style>\n      </head><body>\n      <h1>Clio Conflict Check Report for ${l(s)}</h1>\n      <p>Generated: ${(new Date).toLocaleString()}</p>\n      `;for(const e of i)if(p+=`<h2>Search Term: <span style="color:#0077cc">${l(e.term)}</span></h2>`,e.error)p+=`<div class="error">Error: ${l(e.error)}</div>`;else for(const[t,n]of Object.entries(e.categories)){const e=n.length,o=e.toLocaleString("en-US");p+=`<h3>${l(t)} (${o} result${1===e?"":"s"})</h3>`,p+=a(n,0,"https://app.clio.com/nc/")}p+=`</body></html>`;const m=window.open();m?(m.document.write(p),m.document.close()):alert(`Popup blocked! Please allow popups to see the report.`)}),(function(){}));</div>
+
+        <p><strong>Instructions:</strong></p>
+        <ol>
+            <li>Select and copy one of the code blocks above.</li>
+            <li>Right-click on your bookmarks or favorites bar.</li>
+            <li>Select <em>Add Page</em> or <em>Add Bookmark</em>.</li>
+            <li>In the <strong>Name</strong> field, enter a descriptive name (e.g., "Copy Clio Drive Folder Path").</li>
+            <li>In the <strong>URL</strong> or <strong>Location</strong> field, paste the code you just copied.</li>
+            <li>Click <strong>Save</strong>.</li>
+        </ol>
+    </div>
+
+    <h2><span class="step-number">3.</span> Using the Bookmarklets</h2>
+    <ol>
+        <li>Open <strong>Clio Manage</strong> in your browser.</li>
+        <li>For the <strong>"Copy Clio Drive Folder Path"</strong> bookmarklet, open a Matter and its Documents tab (or a subfolder inside the Documents tab). For the <strong>"Run Conflict Check"</strong> bookmarklet, open any page in Clio Manage.</li>
+        <li>Click on the bookmarklet in your bookmarks or favorites bar.</li>
+        <li>The bookmarklet will execute its function within the Clio Manage interface.</li>
+    </ol>
+
+    <div class="important">
+        <h3>💡 What Each Bookmarklet Does</h3>
+        <ul>
+            <li><strong>Copy Clio Drive Folder Path:</strong> Automatically generates and copies the corresponding Clio Drive local folder path for the currently viewed document folder in Clio Manage. This is useful for quickly accessing the same folder structure locally.</li>
+            <li><strong>Run Conflict Check:</strong> Performs comprehensive conflict checks across all categories in Clio Manage for multiple search terms at once, then generates a detailed HTML report with clickable links to each found record.</li>
+        </ul>
+    </div>
+
+    <p><strong>Note:</strong> These bookmarklets work exclusively within the Clio Manage web application. Make sure you're logged into Clio and on the appropriate page before using them.</p>
