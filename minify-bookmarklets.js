@@ -82,7 +82,18 @@ function updateDocsHTML(bookmarklets) {
   const dragLinks = bookmarklets.map(b => {
     if (b.loader) {
       // Loader pattern: minify and encode for href
-      const loaderCode = `(function(){var s=document.createElement('script');s.src='https://solveitsimply.github.io/clio-bookmarklets/js/${b.filename.replace(/\.js$/, '')}.js';document.body.appendChild(s);})()`;
+      const remoteUrl = `https://solveitsimply.github.io/clio-bookmarklets/remote/${b.filename}`;
+      const loaderCode = `(function(){
+  var url='${remoteUrl}';
+  fetch(url).then(function(r){return r.text().then(function(t){
+    if(r.headers.get('content-type')&&r.headers.get('content-type').indexOf('javascript')!==-1){eval(t);}
+    else{
+      var m=t.match(/<pre[^>]*>([\\s\\S]*?)<\\/pre>/i);
+      if(m)eval(m[1]);
+      else alert('Could not extract JS from HTML response.');
+    }
+  });});
+})()`;
       return `        <a href='javascript:${encodeURIComponent(loaderCode)}' class="drag-link">${b.name}</a>`;
     } else {
       // Inline pattern
@@ -93,7 +104,18 @@ function updateDocsHTML(bookmarklets) {
   // Generate code blocks for Method B
   const codeBlocks = bookmarklets.map(b => {
     if (b.loader) {
-      const loaderCode = `javascript:(function(){var s=document.createElement('script');s.src='https://solveitsimply.github.io/clio-bookmarklets/js/${b.filename.replace(/\.js$/, '')}.js';document.body.appendChild(s);})()`;
+      const remoteUrl = `https://solveitsimply.github.io/clio-bookmarklets/remote/${b.filename}`;
+      const loaderCode = `javascript:(function(){
+  var url='${remoteUrl}';
+  fetch(url).then(function(r){return r.text().then(function(t){
+    if(r.headers.get('content-type')&&r.headers.get('content-type').indexOf('javascript')!==-1){eval(t);}
+    else{
+      var m=t.match(/<pre[^>]*>([\\s\\S]*?)<\\/pre>/i);
+      if(m)eval(m[1]);
+      else alert('Could not extract JS from HTML response.');
+    }
+  });});
+})()`;
       return `
         <h4>${b.name}</h4>
         <div class="code-block">${loaderCode}</div>`;
