@@ -1,4 +1,4 @@
-// ==Clio Manage Conflict Check Bookmarklet==
+// Run Conflict Check
 // This bookmarklet automates conflict checks in Clio Manage by accepting a list of search terms,
 // performing searches for each term, collecting results from all categories, and generating a report.
 // Usage: Add this script as a bookmarklet. When clicked, it will prompt for search terms and run the check.

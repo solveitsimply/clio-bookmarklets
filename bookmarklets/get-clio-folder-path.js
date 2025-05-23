@@ -1,4 +1,4 @@
-// Get Clio Folder Path Bookmarklet
+// Copy Clio Drive Folder Path
 // Copies the local file path (as it would appear in Clio Drive) for the currently viewed document folder in Clio Manage to your clipboard.
 //
 // Usage: Add this script as a bookmarklet in your browser. When viewing a folder in Clio Manage, click the bookmarklet to copy the corresponding Clio Drive path.
