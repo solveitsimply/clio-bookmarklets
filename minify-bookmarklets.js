@@ -80,64 +80,42 @@ function updateDocsHTML(bookmarklets) {
   let html = fs.readFileSync(DOCS_FILE, 'utf8');
   // Generate drag links for Method A
   const dragLinks = bookmarklets.map(b => {
+    // Use double quotes for href, escape double quotes in JS code
+    function escapeDoubleQuotes(str) {
+      return str.replace(/"/g, '"');
+    }
     if (b.loader) {
-      // Loader pattern: minify and encode for href
       const remoteUrl = `https://solveitsimply.github.io/clio-bookmarklets/remote/${b.filename}`;
-      const loaderCode = `(function(){
-  var url='${remoteUrl}?t='+Date.now();
-  fetch(url).then(function(r){return r.text().then(function(t){
-    if(r.headers.get('content-type')&&r.headers.get('content-type').indexOf('javascript')!==-1){eval(t);}
-    else{
-      var m=t.match(/<pre[^>]*>([\\s\\S]*?)<\\/pre>/i);
-      if(m)eval(m[1]);
-      else alert('Could not extract JS from HTML response.');
-    }
-  });});
-})()`;
-      return `        <a href='javascript:${encodeURIComponent(loaderCode)}' class="drag-link">${b.name}</a>`;
+      const loaderCode = `(()=>{let u='${remoteUrl}?t='+Date.now();fetch(u).then(r=>r.text()).then(t=>{try{eval(t)}catch(e){let m=t.match(/<pre[^>]*>([\\s\\S]*?)<\\/pre>/i);if(m)eval(m[1]);else alert('Could not extract JS from HTML response.')}})})()`;
+      return `<a href="javascript:${escapeDoubleQuotes(loaderCode)}" class="drag-link">${b.name}</a>`;
     } else {
-      // Inline pattern
       const code = b.minifiedCode.startsWith('javascript:') ? b.minifiedCode.slice(11) : b.minifiedCode;
-      return `        <a href='javascript:${encodeURIComponent(code)}' class="drag-link">${b.name}</a>`;
+      return `<a href="javascript:${escapeDoubleQuotes(code)}" class="drag-link">${b.name}</a>`;
     }
-  }).join('\n');
+  }).join('');
   // Generate code blocks for Method B
   const codeBlocks = bookmarklets.map(b => {
     if (b.loader) {
       const remoteUrl = `https://solveitsimply.github.io/clio-bookmarklets/remote/${b.filename}`;
-      const loaderCode = `javascript:(function(){
-  var url='${remoteUrl}?t='+Date.now();
-  fetch(url).then(function(r){return r.text().then(function(t){
-    if(r.headers.get('content-type')&&r.headers.get('content-type').indexOf('javascript')!==-1){eval(t);}
-    else{
-      var m=t.match(/<pre[^>]*>([\\s\\S]*?)<\\/pre>/i);
-      if(m)eval(m[1]);
-      else alert('Could not extract JS from HTML response.');
-    }
-  });});
-})()`;
-      return `
-        <h4>${b.name}</h4>
-        <div class="code-block">${loaderCode}</div>`;
+      const loaderCode = `javascript:(()=>{let u='${remoteUrl}?t='+Date.now();fetch(u).then(r=>r.text()).then(t=>{try{eval(t)}catch(e){let m=t.match(/<pre[^>]*>([\\s\\S]*?)<\\/pre>/i);if(m)eval(m[1]);else alert('Could not extract JS from HTML response.')}})})()`;
+      return `<h4>${b.name}</h4><div class="code-block">${loaderCode}</div>`;
     } else {
-      return `
-        <h4>${b.name}</h4>
-        <div class="code-block">${b.minifiedCode.replace(/</g, '<').replace(/>/g, '>')}</div>`;
+      return `<h4>${b.name}</h4><div class="code-block">${b.minifiedCode.replace(/</g, '<').replace(/>/g, '>')}</div>`;
     }
-  }).join('\n');
+  }).join('');
   // Generate description list
   const descriptions = bookmarklets.map(b =>
     `            <li><strong>${b.name}:</strong> ${b.description}</li>`
   ).join('\n');
   // Replace the drag links section (Method A)
   html = html.replace(
-    /(<!-- Method A drag links start -->|<p>Click and hold one of these links:<\/p>\s*)([\s\S]*?)(\s*<p><strong>Instructions:<\/strong><\/p>)/,
-    `$1\n${dragLinks}\n$3`
+    /(<!-- Method A drag links start -->|<p>Click and hold one of these links:<\/p>)[\s\S]*?(\s*<p><strong>Instructions:<\/strong><\/p>)/,
+    `$1\n${dragLinks}\n$2`
   );
   // Replace the code blocks section (Method B)
   html = html.replace(
-    /(<!-- Method B code blocks start -->|<p>Copy the code you need below:<\/p>)([\s\S]*?)(\s*<p><strong>Instructions:<\/strong><\/p>)/,
-    `$1\n${codeBlocks}\n$3`
+    /(<!-- Method B code blocks start -->|<p>Copy the code you need below:<\/p>)[\s\S]*?(\s*<p><strong>Instructions:<\/strong><\/p>)/,
+    `$1\n${codeBlocks}\n$2`
   );
   // Replace the descriptions section
   html = html.replace(
