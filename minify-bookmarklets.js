@@ -10,6 +10,7 @@
 const fs = require('fs');
 const path = require('path');
 const { minify } = require('terser');
+const babel = require('@babel/core');
 
 const SRC_DIR = path.join(__dirname, 'bookmarklets');
 const OUT_DIR = path.join(SRC_DIR, 'min');
@@ -70,19 +71,38 @@ function updateReadmeBookmarkletList(bookmarklets) {
   console.log('Updated README.md with bookmarklet list');
 }
 
-// Update the docs/index.html file with current bookmarklets
+/**
+ * Update the docs/index.html file with current bookmarklets.
+ * For large bookmarklets (marked with // @loader or minified > 1800 chars), use loader pattern.
+ */
 function updateDocsHTML(bookmarklets) {
   if (!fs.existsSync(DOCS_FILE)) return;
   let html = fs.readFileSync(DOCS_FILE, 'utf8');
   // Generate drag links for Method A
-  const dragLinks = bookmarklets.map(b =>
-    `        <a href='${b.minifiedCode.replace(/'/g, "'")}' class="drag-link">${b.name}</a>`
-  ).join('\n\n');
+  const dragLinks = bookmarklets.map(b => {
+    if (b.loader) {
+      // Loader pattern: minify and encode for href
+      const loaderCode = `(function(){var s=document.createElement('script');s.src='https://solveitsimply.github.io/clio-bookmarklets/remote/${b.filename.replace(/\.js$/, '')}.js?'+Date.now();document.body.appendChild(s);})()`;
+      return `        <a href='javascript:${encodeURIComponent(loaderCode)}' class="drag-link">${b.name}</a>`;
+    } else {
+      // Inline pattern
+      const code = b.minifiedCode.startsWith('javascript:') ? b.minifiedCode.slice(11) : b.minifiedCode;
+      return `        <a href='javascript:${encodeURIComponent(code)}' class="drag-link">${b.name}</a>`;
+    }
+  }).join('\n\n');
   // Generate code blocks for Method B
-  const codeBlocks = bookmarklets.map(b => `
+  const codeBlocks = bookmarklets.map(b => {
+    if (b.loader) {
+      const loaderCode = `javascript:(function(){var s=document.createElement('script');s.src='https://solveitsimply.github.io/clio-bookmarklets/remote/${b.filename.replace(/\.js$/, '')}.js?'+Date.now();document.body.appendChild(s);})()`;
+      return `
         <h4>${b.name}</h4>
-        <div class="code-block">${b.minifiedCode.replace(/</g, '<').replace(/>/g, '>')}</div>`
-  ).join('\n');
+        <div class="code-block">${loaderCode}</div>`;
+    } else {
+      return `
+        <h4>${b.name}</h4>
+        <div class="code-block">${b.minifiedCode.replace(/</g, '<').replace(/>/g, '>')}</div>`;
+    }
+  }).join('\n');
   // Generate description list
   const descriptions = bookmarklets.map(b =>
     `            <li><strong>${b.name}:</strong> ${b.description}</li>`
@@ -117,9 +137,31 @@ async function minifyBookmarklets() {
     const outPath = path.join(OUT_DIR, file);
     const code = fs.readFileSync(srcPath, 'utf8');
     const info = extractBookmarkletInfo(srcPath);
+
+    // Loader mode: if file contains // @loader or minified > 1800 chars
+    let loader = false;
+    if (/\/\/\s*@loader\b/i.test(code)) loader = true;
+
+    let transpiled, minifiedCode, bookmarklet;
     try {
-      const result = await minify(code, {
-        ecma: 2015,
+      // Transpile to ES5 using Babel
+      transpiled = babel.transformSync(code, {
+        presets: [
+          [
+            '@babel/preset-env',
+            {
+              targets: { ie: "11" },
+              modules: false
+            }
+          ]
+        ],
+        sourceType: 'script',
+        comments: false,
+        compact: true
+      }).code;
+
+      const result = await minify(transpiled, {
+        ecma: 5,
         compress: true,
         mangle: true,
         output: {
@@ -127,16 +169,31 @@ async function minifyBookmarklets() {
           quote_style: 3
         }
       });
-      let minifiedCode = result.code;
-      minifiedCode = minifiedCode.replace(/'/g, '`');
-      const bookmarklet = 'javascript:' + minifiedCode;
+      minifiedCode = result.code;
+      bookmarklet = 'javascript:' + minifiedCode;
+
+      // If not explicitly marked, check size
+      if (!loader && minifiedCode.length > 1800) loader = true;
+
+      // Write minified file to min/
       fs.writeFileSync(outPath, bookmarklet, 'utf8');
       console.log(`Minified ${file} -> min/${file}`);
+
+      // If loader, also write to docs/remote/
+      if (loader) {
+        const remoteDir = path.join(__dirname, 'docs', 'remote');
+        if (!fs.existsSync(remoteDir)) fs.mkdirSync(remoteDir, { recursive: true });
+        const remotePath = path.join(remoteDir, file);
+        fs.writeFileSync(remotePath, transpiled, 'utf8');
+        console.log(`Wrote loader remote file: docs/remote/${file}`);
+      }
+
       bookmarklets.push({
         name: info.name,
         description: info.description || 'No description available.',
         filename: file,
-        minifiedCode: bookmarklet
+        minifiedCode: bookmarklet,
+        loader
       });
     } catch (err) {
       console.error(`Failed to minify ${file}:`, err);

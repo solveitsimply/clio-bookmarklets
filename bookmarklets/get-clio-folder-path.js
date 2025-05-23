@@ -6,7 +6,6 @@
 (function() {
   // 1. Detect OS (Windows or Mac)
   function getOS() {
-    return 'windows'; // temporarily added for testing
     const platform = navigator.platform.toLowerCase();
     if (platform.indexOf('win') >= 0) return 'windows';
     if (platform.indexOf('mac') >= 0) return 'mac';
@@ -21,11 +20,26 @@
       // 1. Try to get client name from sessionStorage (set after dashboard extraction)
       let clientName = sessionStorage.getItem('clioClientName') || '';
 
-      // 2. Try to get matter number from <cc-page-header>
+      // 2. Try to get matter number and client name from <cc-page-header>
       const pageHeader = document.querySelector('cc-page-header');
       let matterNumber = '';
-      if (pageHeader && pageHeader.hasAttribute('header')) {
-        matterNumber = pageHeader.getAttribute('header').trim();
+      let clientNameFromHeader = '';
+      if (pageHeader) {
+        // Try to get matter number from h1.has-subtitle
+        const h1 = pageHeader.querySelector('h1.has-subtitle');
+        if (h1) {
+          matterNumber = h1.textContent.trim();
+        }
+        // Try to get client name from h2.subtitle
+        const h2 = pageHeader.querySelector('h2.subtitle');
+        if (h2) {
+          clientNameFromHeader = h2.textContent.trim();
+        }
+      }
+      // Prefer clientName from sessionStorage, but fallback to header if available
+      if (!clientName && clientNameFromHeader) {
+        clientName = clientNameFromHeader;
+        sessionStorage.setItem('clioClientName', clientName);
       }
 
       // 3. If client name is not set, check if we're on the dashboard and can extract it
