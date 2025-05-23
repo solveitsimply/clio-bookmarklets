@@ -84,7 +84,7 @@ function updateDocsHTML(bookmarklets) {
       // Loader pattern: minify and encode for href
       const remoteUrl = `https://solveitsimply.github.io/clio-bookmarklets/remote/${b.filename}`;
       const loaderCode = `(function(){
-  var url='${remoteUrl}';
+  var url='${remoteUrl}?t='+Date.now();
   fetch(url).then(function(r){return r.text().then(function(t){
     if(r.headers.get('content-type')&&r.headers.get('content-type').indexOf('javascript')!==-1){eval(t);}
     else{
@@ -106,7 +106,7 @@ function updateDocsHTML(bookmarklets) {
     if (b.loader) {
       const remoteUrl = `https://solveitsimply.github.io/clio-bookmarklets/remote/${b.filename}`;
       const loaderCode = `javascript:(function(){
-  var url='${remoteUrl}';
+  var url='${remoteUrl}?t='+Date.now();
   fetch(url).then(function(r){return r.text().then(function(t){
     if(r.headers.get('content-type')&&r.headers.get('content-type').indexOf('javascript')!==-1){eval(t);}
     else{
